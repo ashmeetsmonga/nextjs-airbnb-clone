@@ -1,14 +1,7 @@
-// import { SafeUser } from "@/app/types";
-
-// import Categories from "./Categories";
 import Container from "../Container";
 import Logo from "./Logo";
-// import Search from "./Search";
-// import UserMenu from "./UserMenu";
-
-// interface NavbarProps {
-//   currentUser?: SafeUser | null;
-// }
+import Search from "./Search";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
 	return (
@@ -31,12 +24,11 @@ const Navbar = () => {
           '
 					>
 						<Logo />
-						{/* <Search /> */}
-						{/* <UserMenu currentUser={currentUser} /> */}
+						<Search />
+						<UserMenu />
 					</div>
 				</Container>
 			</div>
-			{/* <Categories /> */}
 		</div>
 	);
 };
