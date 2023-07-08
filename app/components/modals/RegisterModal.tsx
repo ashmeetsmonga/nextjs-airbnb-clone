@@ -10,6 +10,7 @@ import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
+import { toast } from "react-hot-toast";
 
 const RegisterModal = () => {
 	const registerModal = useRegisterModal();
@@ -32,7 +33,7 @@ const RegisterModal = () => {
 		axios
 			.post("/api/register", data)
 			.then(() => registerModal.onClose())
-			.catch((error) => console.log(error))
+			.catch((error) => toast.error("Something went wrong"))
 			.finally(() => setIsLoading(false));
 	};
 
