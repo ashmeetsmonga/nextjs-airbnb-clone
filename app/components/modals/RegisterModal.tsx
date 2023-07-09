@@ -11,9 +11,11 @@ import { AiFillGithub } from "react-icons/ai";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 const RegisterModal = () => {
 	const registerModal = useRegisterModal();
+	const loginModal = useLoginModal();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const {
@@ -35,6 +37,11 @@ const RegisterModal = () => {
 			.then(() => registerModal.onClose())
 			.catch((error) => toast.error("Something went wrong"))
 			.finally(() => setIsLoading(false));
+	};
+
+	const toggle = () => {
+		registerModal.onClose();
+		loginModal.onOpen();
 	};
 
 	const bodyContent = (
@@ -73,25 +80,10 @@ const RegisterModal = () => {
 			<hr />
 			<Button outline label='Continue with Google' icon={FcGoogle} onClick={() => {}} />
 			<Button outline label='Continue with Github' icon={AiFillGithub} onClick={() => {}} />
-			<div
-				className='
-              text-neutral-500 
-              text-center 
-              mt-4 
-              font-light
-            '
-			>
+			<div className=' text-neutral-500 text-center mt-4 font-light '>
 				<p>
 					Already have an account?
-					<span
-						onClick={() => {}}
-						className='
-                  text-neutral-800
-                  cursor-pointer 
-                  hover:underline
-                '
-					>
-						{" "}
+					<span onClick={toggle} className=' text-neutral-800 cursor-pointer hover:underline '>
 						Log in
 					</span>
 				</p>

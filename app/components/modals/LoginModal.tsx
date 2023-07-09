@@ -12,9 +12,11 @@ import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { useRouter } from "next/navigation";
+import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 const LoginModal = () => {
 	const loginModal = useLoginModal();
+	const registerModal = useRegisterModal();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const router = useRouter();
 
@@ -43,6 +45,11 @@ const LoginModal = () => {
 				toast.error(callback.error);
 			}
 		});
+	};
+
+	const toggle = () => {
+		loginModal.onClose();
+		registerModal.onOpen();
 	};
 
 	const bodyContent = (
@@ -75,10 +82,10 @@ const LoginModal = () => {
 			<Button outline label='Continue with Github' icon={AiFillGithub} onClick={() => {}} />
 			<div className=' text-neutral-500 text-center mt-4 font-light '>
 				<p>
-					Already have an account?
-					<span onClick={() => {}} className=' text-neutral-800 cursor-pointer hover:underline '>
+					First time using Airbnb?
+					<span onClick={toggle} className=' text-neutral-800 cursor-pointer hover:underline '>
 						{" "}
-						Log in
+						Create an account
 					</span>
 				</p>
 			</div>
