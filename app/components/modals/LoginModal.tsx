@@ -11,10 +11,12 @@ import Input from "../inputs/Input";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
 	const loginModal = useLoginModal();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const router = useRouter();
 
 	const {
 		register,
@@ -29,7 +31,18 @@ const LoginModal = () => {
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		setIsLoading(true);
-		signIn("credentials", { ...data });
+		signIn("credentials", { ...data, redirect: false }).then((callback) => {
+			setIsLoading(false);
+			if (callback?.ok) {
+				toast.success("Logged In");
+				router.refresh();
+				loginModal.onClose();
+			}
+
+			if (callback?.error) {
+				toast.error(callback.error);
+			}
+		});
 	};
 
 	const bodyContent = (
